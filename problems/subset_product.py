@@ -1,6 +1,3 @@
-from bisect import bisect
-
-
 class SubsetProduct:
     """
     Find the number of non-empty subsets whose product of elements is less than or equal to a given integer K.
@@ -17,11 +14,24 @@ class SubsetProduct:
         arr = [a for a in arr if a <= k]
         if n <= 1:
             return n
-        left = arr[: n // 2]
-        right = arr[n // 2 :]
-        count = self.count(left, len(left), k) + self.count(right, len(right), k)
-        left_products = self.products(left, k)
-        right_products = self.products(right, k)
-        for p in left_products:
-            count += bisect(right_products, (k // p))  # TODO: fix
+        n2 = n // 2
+        count = self.count(arr[:n2], len(arr[:n2]), k) + self.count(arr[n2:], len(arr[n2:]), k)
+        products = self.products(arr[n2:], k)
+        for x in self.products(arr[:n2], k):
+            count += 1 + self.max_index(lambda y: x * y <= k, products, 0, len(products))
         return count
+
+    def max_index(self, f, arr, min, max):
+        """
+        Returns the maximal index i such that i in [min, max[ and f(arr[i]).
+        :param f: a boolean function
+        :param arr: an array
+        :param min: a minimal bound (included)
+        :param max: a maximal bound (excluded)
+        :return: an index
+        """
+        if min + 1 == max:
+            return min if f(arr[min]) else -1
+        mid = (min + max) // 2
+        return self.max_index(f, arr, mid, max) if f(arr[mid]) else self.max_index(f, arr, min, mid)
+
