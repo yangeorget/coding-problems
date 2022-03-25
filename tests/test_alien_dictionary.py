@@ -12,4 +12,7 @@ class TestAlienDictionary:
         assert AlienDictionary().find_order(["bdcace"], 1, 8) == "abcdefgh"
 
     def test_find_order2(self) -> None:
-        assert AlienDictionary().find_order(["baa", "abcd", "abca", "cab", "cad"], 5, 4) == "bdac"
+        assert (
+            AlienDictionary().find_order(["baa", "abcd", "abca", "cab", "cad"], 5, 4)
+            == "bdac"
+        )

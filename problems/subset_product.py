@@ -15,10 +15,14 @@ class SubsetProduct:
         if n <= 1:
             return n
         n2 = n // 2
-        count = self.count(arr[:n2], len(arr[:n2]), k) + self.count(arr[n2:], len(arr[n2:]), k)
+        count = self.count(arr[:n2], len(arr[:n2]), k) + self.count(
+            arr[n2:], len(arr[n2:]), k
+        )
         products = self.products(arr[n2:], k)
         for x in self.products(arr[:n2], k):
-            count += 1 + self.max_index(lambda y: x * y <= k, products, 0, len(products))
+            count += 1 + self.max_index(
+                lambda y: x * y <= k, products, 0, len(products)
+            )
         return count
 
     def max_index(self, f, arr, min, max):
@@ -33,5 +37,8 @@ class SubsetProduct:
         if min + 1 == max:
             return min if f(arr[min]) else -1
         mid = (min + max) // 2
-        return self.max_index(f, arr, mid, max) if f(arr[mid]) else self.max_index(f, arr, min, mid)
-
+        return (
+            self.max_index(f, arr, mid, max)
+            if f(arr[mid])
+            else self.max_index(f, arr, min, mid)
+        )

@@ -7,19 +7,22 @@ class AlienDictionary:
     find the order of characters in the alien language.
     See https://practice.geeksforgeeks.org/problems/alien-dictionary/1
     """
+
     def find_order(self, arr, n, k):
         if n <= 1:
             return ALPHABET[:k]
         # we are going to compute a graph of letter indices where an edge means "smaller"
         smaller_graph = [[] for i in range(0, k)]
         nb_of_incoming_edges = [0 for i in range(0, k)]
-        for i in range(0, len(arr)-1):
-            e = self.get_edge(arr[i], arr[i+1])
+        for i in range(0, len(arr) - 1):
+            e = self.get_edge(arr[i], arr[i + 1])
             if e:
                 if not e[1] in smaller_graph[e[0]]:
                     smaller_graph[e[0]].append(e[1])
                     nb_of_incoming_edges[e[1]] += 1
-        nodes_with_no_incoming_edges = [i for i in range(0, k) if nb_of_incoming_edges[i] == 0]
+        nodes_with_no_incoming_edges = [
+            i for i in range(0, k) if nb_of_incoming_edges[i] == 0
+        ]
         # we compute a topological order using Kahn's algorithm
         order = []
         while len(nodes_with_no_incoming_edges) > 0:
@@ -31,7 +34,6 @@ class AlienDictionary:
                 if nb_of_incoming_edges[m] == 0:
                     nodes_with_no_incoming_edges.append(m)
         return "".join([ALPHABET[i] for i in order])
-
 
     def get_edge(self, word1, word2):
         """
