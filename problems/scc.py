@@ -3,11 +3,14 @@ class SCC:
     Strongly connected components using Tarjan's algorithm.
     See https://practice.geeksforgeeks.org/problems/strongly-connected-component-tarjanss-algo-1587115621/1/
     """
+
     index = 0  # global counter that will be only incremented
 
     def compute_sccs(self, v, graph):
         node_stack = []  # the stack that will be used to build the SCC
-        on_stack = [False for i in range(0, v)]  # to detect in constant time if a node is on the stack
+        on_stack = [
+            False for i in range(0, v)
+        ]  # to detect in constant time if a node is on the stack
         indices = [-1 for i in range(0, v)]  # the DFS ordering of the nodes
         min_indices = [-1 for i in range(0, v)]  # smallest indices reachable by DFS
         sccs = []
