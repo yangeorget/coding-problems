@@ -2,6 +2,7 @@ class Boggle:
     """
     See https://practice.geeksforgeeks.org/problems/word-boggle4143/1/
     """
+
     def word_boggle(self, board, dictionary):
         positions = self.compute_positions(board)
         return sorted(
