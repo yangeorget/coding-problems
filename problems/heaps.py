@@ -64,6 +64,7 @@ class IndexedHeap(Heap):
     A heap where the heap index of a value can be retrieved in constant time.
     Values have to be integers in [0, size[ to be used as indices in the indices array.
     """
+
     def __init__(self, greater, values, indices):
         self.size = len(values)
         self.greater = greater
