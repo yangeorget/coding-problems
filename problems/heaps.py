@@ -3,10 +3,10 @@ class Heap:
     A heap.
     """
 
-    def __init__(self, size, greater):
-        self.greater = greater
-        self.values = [None for _ in range(0, size)]
+    def __init__(self, capacity, greater):
         self.size = 0
+        self.greater = greater
+        self.values = [None for _ in range(0, capacity)]
 
     def add(self, value):
         """
@@ -57,3 +57,31 @@ class MaxHeap(Heap):
 class MinHeap(Heap):
     def __init__(self, size):
         super().__init__(size, lambda a, b: a < b)
+
+
+class IndexedHeap(Heap):
+    """
+    A heap where the heap index of a value can be retrieved in constant time.
+    Values have to be integers in [0, size[ to be used as indices in the indices array.
+    """
+    def __init__(self, greater, values, indices):
+        self.size = len(values)
+        self.greater = greater
+        self.values = values
+        self.indices = indices
+
+    def add(self, value):
+        """
+        Adds a value to the heap (may throw an exception if capacity is not enough).
+        """
+        self.values[self.size] = value
+        self.indices[value] = self.size
+        self.up(self.size)
+        self.size += 1
+
+    def swap(self, pos1, pos2):
+        tmp = self.values[pos1]
+        self.values[pos1] = self.values[pos2]
+        self.values[pos2] = tmp
+        self.indices[self.values[pos1]] = pos1
+        self.indices[self.values[pos2]] = pos2
