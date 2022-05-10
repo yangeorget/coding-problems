@@ -8,6 +8,7 @@ class MinCostPath:
     See https://practice.geeksforgeeks.org/problems/minimum-cost-path3833/1
     Does not pass all examples : too slow !!!
     """
+
     def minimum_cost_path(self, grid):
         n = len(grid)
         # all the following arrays could be matrices but have been flattened instead
