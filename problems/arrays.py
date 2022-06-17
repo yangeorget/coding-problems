@@ -28,5 +28,4 @@ class Arrays:
                 s.append(x)
             else:
                 i = bisect_left(s, x)  # s[i] >= x
-                s[i] = x
         return len(s)
