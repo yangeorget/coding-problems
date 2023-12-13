@@ -8,9 +8,6 @@ class Arrays:
     """
 
     def min_ins_and_del(self, a, b, n, m):
-        """
-        
-        """
         c = [x for x in a if self.in_sorted_array(b, x)]  # elements of a also in b
         length = self.lis_length(c)
         deletions = n - length
